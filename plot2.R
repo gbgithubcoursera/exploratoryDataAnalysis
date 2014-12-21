@@ -1,13 +1,15 @@
 #!/bin/env Rscript
 
+# Read the serialized object into NEI
 NEI <- readRDS("summarySCC_PM25.rds")
 
-#  Create Data
+# Create Baltimore City Data set 
 baltimoreData <- subset(NEI, fips == "24510")
 
+# Baltimore's Emissions yearly summation.
 baltSum <- aggregate(baltimoreData[c("Emissions")], list(year = baltimoreData$year), sum)
 
-#  Create Plot
+#  Open the PNG device to Plot to.
 png('plot2.png', width=480, height=480)
 
 plot(baltSum$year, baltSum$Emissions, type = "l", 
